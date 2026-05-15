@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Loan #{{ loan.loan_id }} — LibraryMS{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center mb-4">
+    <a href="{{ url_for('loans.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+    <h1 class="h2 fw-bold mb-0">Loan #{{ loan.loan_id }}</h1>
+</div>
+<div class="col-md-5">
+    <div class="card border-0 shadow-sm p-3">
+        <dl class="row mb-0">
+            <dt class="col-5 text-muted">Member</dt><dd class="col-7">{{ loan.member.full_name }}</dd>
+            <dt class="col-5 text-muted">Book</dt><dd class="col-7">{{ loan.book.title }}</dd>
+            <dt class="col-5 text-muted">Loan Date</dt><dd class="col-7">{{ loan.loan_date }}</dd>
+            <dt class="col-5 text-muted">Due Date</dt><dd class="col-7">{{ loan.due_date }}</dd>
+            <dt class="col-5 text-muted">Return Date</dt><dd class="col-7">{{ loan.return_date or '—' }}</dd>
+            <dt class="col-5 text-muted">Duration</dt><dd class="col-7">{{ loan.loan_duration_days ~ ' days' if loan.loan_duration_days else '—' }}</dd>
+            <dt class="col-5 text-muted">Status</dt>
+            <dd class="col-7">{% if loan.status == 'Returned' %}<span class="badge bg-success">Returned</span>{% elif loan.status == 'Overdue' %}<span class="badge bg-danger">Overdue</span>{% else %}<span class="badge bg-warning text-dark">Active</span>{% endif %}</dd>
+        </dl>
+    </div>
+</div>
+{% endblock %}

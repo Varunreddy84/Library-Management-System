@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}New Loan — LibraryMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+    <div class="d-flex align-items-center mb-4">
+        <a href="{{ url_for('loans.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+        <h1 class="h2 fw-bold mb-0">Checkout a Book</h1>
+    </div>
+    <div class="alert alert-info border-0"><i class="bi bi-info-circle me-2"></i><strong>Transaction:</strong> Verifies availability and creates the loan atomically. If no copies are available, checkout is declined.</div>
+    <div class="card border-0 shadow-sm"><div class="card-body p-4">
+        <form method="POST">
+            <div class="mb-3"><label class="form-label fw-semibold">Member *</label>
+                <select name="member_id" class="form-select" required>
+                    <option value="">— Select Member —</option>
+                    {% for member in members %}
+                    <option value="{{ member.member_id }}" {% if form_data and form_data.member_id|string == member.member_id|string %}selected{% endif %}>{{ member.full_name }}</option>
+                    {% endfor %}
+                </select></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Book *</label>
+                <select name="book_id" class="form-select" required>
+                    <option value="">— Select Book —</option>
+                    {% for book in books %}
+                    <option value="{{ book.book_id }}" {% if form_data and form_data.book_id|string == book.book_id|string %}selected{% endif %}>{{ book.title }} — {{ book.available_copies }} available</option>
+                    {% endfor %}
+                </select></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Loan Date</label>
+                <input type="date" name="loan_date" class="form-control" value="{{ form_data.loan_date if form_data else '' }}"></div>
+            <div class="mb-4"><label class="form-label fw-semibold">Due Date</label>
+                <input type="date" name="due_date" class="form-control" value="{{ form_data.due_date if form_data else '' }}">
+                <div class="form-text">Default: 14 days from today.</div></div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-danger"><i class="bi bi-check-circle me-1"></i>Confirm Checkout</button>
+                <a href="{{ url_for('loans.index') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div></div>
+</div></div>
+{% endblock %}

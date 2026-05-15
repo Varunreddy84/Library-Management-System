@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} Book — LibraryMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+    <div class="d-flex align-items-center mb-4">
+        <a href="{{ url_for('books.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+        <h1 class="h2 fw-bold mb-0">{{ action }} Book</h1>
+    </div>
+    <div class="card border-0 shadow-sm"><div class="card-body p-4">
+        <form method="POST">
+            <div class="mb-3"><label class="form-label fw-semibold">Title *</label>
+                <input type="text" name="title" class="form-control" value="{{ form_data.title if form_data else '' }}" required></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Author</label>
+                <select name="author_id" class="form-select">
+                    <option value="">— Select Author —</option>
+                    {% for author in authors %}
+                    <option value="{{ author.author_id }}" {% if form_data and form_data.author_id|string == author.author_id|string %}selected{% endif %}>{{ author.full_name }}</option>
+                    {% endfor %}
+                </select></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Genre</label>
+                <input type="text" name="genre" class="form-control" value="{{ form_data.genre if form_data else '' }}"></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Published Year</label>
+                <input type="number" name="published_year" class="form-control" value="{{ form_data.published_year if form_data else '' }}"></div>
+            <div class="mb-4"><label class="form-label fw-semibold">Total Copies</label>
+                <input type="number" name="total_copies" class="form-control" min="1" value="{{ form_data.total_copies if form_data else 1 }}"></div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-primary"><i class="bi bi-check-circle me-1"></i>{{ action }} Book</button>
+                <a href="{{ url_for('books.index') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div></div>
+</div></div>
+{% endblock %}

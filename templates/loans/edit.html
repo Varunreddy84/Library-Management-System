@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Edit Loan — LibraryMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+    <div class="d-flex align-items-center mb-4">
+        <a href="{{ url_for('loans.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+        <h1 class="h2 fw-bold mb-0">Edit Due Date</h1>
+    </div>
+    <div class="card border-0 shadow-sm mb-3 p-3">
+        <dl class="row mb-0">
+            <dt class="col-4 text-muted">Member</dt><dd class="col-8">{{ loan.member.full_name }}</dd>
+            <dt class="col-4 text-muted">Book</dt><dd class="col-8">{{ loan.book.title }}</dd>
+            <dt class="col-4 text-muted">Loan Date</dt><dd class="col-8">{{ loan.loan_date }}</dd>
+            <dt class="col-4 text-muted">Current Due</dt><dd class="col-8">{{ loan.due_date }}</dd>
+        </dl>
+    </div>
+    <div class="card border-0 shadow-sm"><div class="card-body p-4">
+        <form method="POST">
+            <div class="mb-4"><label class="form-label fw-semibold">New Due Date *</label>
+                <input type="date" name="due_date" class="form-control" value="{{ loan.due_date }}" required></div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-check-circle me-1"></i>Update Due Date</button>
+                <a href="{{ url_for('loans.index') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div></div>
+</div></div>
+{% endblock %}

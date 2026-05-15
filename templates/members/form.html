@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}{{ action }} Member — LibraryMS{% endblock %}
+{% block content %}
+<div class="row justify-content-center"><div class="col-md-6">
+    <div class="d-flex align-items-center mb-4">
+        <a href="{{ url_for('members.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+        <h1 class="h2 fw-bold mb-0">{{ action }} Member</h1>
+    </div>
+    <div class="card border-0 shadow-sm"><div class="card-body p-4">
+        <form method="POST">
+            <div class="mb-3"><label class="form-label fw-semibold">First Name *</label>
+                <input type="text" name="first_name" class="form-control" value="{{ form_data.first_name if form_data else '' }}" required></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Last Name *</label>
+                <input type="text" name="last_name" class="form-control" value="{{ form_data.last_name if form_data else '' }}" required></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Email *</label>
+                <input type="email" name="email" class="form-control" value="{{ form_data.email if form_data else '' }}" required></div>
+            <div class="mb-3"><label class="form-label fw-semibold">Phone</label>
+                <input type="text" name="phone" class="form-control" value="{{ form_data.phone if form_data else '' }}"></div>
+            <div class="mb-4"><label class="form-label fw-semibold">Join Date</label>
+                <input type="date" name="join_date" class="form-control" value="{{ form_data.join_date if form_data else '' }}"></div>
+            <div class="d-flex gap-2">
+                <button type="submit" class="btn btn-warning"><i class="bi bi-check-circle me-1"></i>{{ action }} Member</button>
+                <a href="{{ url_for('members.index') }}" class="btn btn-outline-secondary">Cancel</a>
+            </div>
+        </form>
+    </div></div>
+</div></div>
+{% endblock %}

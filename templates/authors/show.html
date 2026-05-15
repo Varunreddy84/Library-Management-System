@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}{{ author.full_name }} — LibraryMS{% endblock %}
+{% block content %}
+<div class="d-flex align-items-center mb-4">
+    <a href="{{ url_for('authors.index') }}" class="btn btn-sm btn-outline-secondary me-3"><i class="bi bi-arrow-left"></i></a>
+    <h1 class="h2 fw-bold mb-0">{{ author.full_name }}</h1>
+</div>
+<div class="row g-3">
+    <div class="col-md-4">
+        <div class="card border-0 shadow-sm p-3">
+            <dl class="row mb-2">
+                <dt class="col-5 text-muted">Nationality</dt><dd class="col-7">{{ author.nationality or '—' }}</dd>
+                <dt class="col-5 text-muted">Birth Year</dt><dd class="col-7">{{ author.birth_year or '—' }}</dd>
+                <dt class="col-5 text-muted">Books</dt><dd class="col-7">{{ author.books|length }}</dd>
+            </dl>
+            <div class="d-flex gap-2">
+                <a href="{{ url_for('authors.edit', author_id=author.author_id) }}" class="btn btn-warning btn-sm"><i class="bi bi-pencil me-1"></i>Edit</a>
+                <form method="POST" action="{{ url_for('authors.delete', author_id=author.author_id) }}" onsubmit="return confirm('Delete?')">
+                    <button type="submit" class="btn btn-danger btn-sm"><i class="bi bi-trash me-1"></i>Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card border-0 shadow-sm">
+            <div class="card-header bg-white fw-semibold">Books by this Author</div>
+            <table class="table table-hover mb-0">
+                <thead class="table-light"><tr><th>Title</th><th>Genre</th><th>Year</th></tr></thead>
+                <tbody>
+                {% for book in author.books %}
+                <tr><td>{{ book.title }}</td><td>{{ book.genre or '—' }}</td><td>{{ book.published_year or '—' }}</td></tr>
+                {% else %}
+                <tr><td colspan="3" class="text-center text-muted py-3">No books yet.</td></tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
