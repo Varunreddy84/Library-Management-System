@@ -1,13 +1,14 @@
 import os
 from flask import Flask
-from flask_sqlalchemy import SQLAlchemy
+from extensions import db
+# from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
 load_dotenv()
 
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
-
+from urllib.parse import quote_plus
 def create_app():
     app = Flask(__name__)
 
@@ -18,6 +19,7 @@ def create_app():
     DB_PORT = os.getenv("DB_PORT", "3306")
     DB_NAME = os.getenv("DB_NAME", "library_db")
 
+    DB_PASSWORD = quote_plus(DB_PASSWORD)
     app.config["SQLALCHEMY_DATABASE_URI"] = (
         f"mysql+pymysql://{DB_USER}:{DB_PASSWORD}@{DB_HOST}:{DB_PORT}/{DB_NAME}"
     )
@@ -41,7 +43,7 @@ def create_app():
 
     return app
 
+app = create_app()
 
 if __name__ == "__main__":
-    app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, port=5002)

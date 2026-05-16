@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from datetime import date, timedelta
-from app import db
+# from app import db
+from extensions import db
 from models import Loan, Book, Member
 
 loans_bp = Blueprint("loans", __name__)

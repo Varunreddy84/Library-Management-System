@@ -1,6 +1,7 @@
 from flask import Blueprint, render_template
 from sqlalchemy import func
-from app import db
+# from app import db
+from extensions import db
 from models import Author, Book, Member, Loan
 
 main_bp = Blueprint("main", __name__)

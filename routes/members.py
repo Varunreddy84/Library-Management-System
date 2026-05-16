@@ -1,7 +1,8 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash
 from sqlalchemy.exc import IntegrityError
 from datetime import date
-from app import db
+# from app import db
+from extensions import db
 from models import Member
 
 members_bp = Blueprint("members", __name__)
